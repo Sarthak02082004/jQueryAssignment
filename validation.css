@@ -1,0 +1,253 @@
+/* ===== Global Page Styling ===== */
+body {
+    font-family: 'Poppins', Arial, sans-serif;
+    background-image: url('https://images.unsplash.com/photo-1552664730-d307ca884978?w=1200&h=1200&fit=crop');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+}
+
+/* ===== Form Container ===== */
+.container {
+    background: rgba(255, 255, 255, 0.98);
+    padding: 40px 45px;
+    border-radius: 10px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+    width: 400px;
+    backdrop-filter: blur(10px);
+}
+
+/* ===== Heading ===== */
+h2 {
+    text-align: center;
+    color: #1a1a1a;
+    margin-bottom: 20px;
+    font-size: 26px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+}
+
+/* ===== Labels ===== */
+.form-label {
+    font-weight: 600;
+    display: block;
+    margin-top: 15px;
+    margin-bottom: 8px;
+    transition: all 0.3s ease;
+    color: #333;
+    font-size: 14px;
+    letter-spacing: 0.3px;
+}
+
+.form-label:hover {
+    opacity: 0.8;
+    letter-spacing: 0.5px;
+}
+
+/* Required red asterisk */
+.required::after {
+    content: " *";
+    color: #e74c3c;
+}
+
+/* Error Message Styling */
+.error-msg {
+    color: #dc3545;
+    font-size: 12px;
+    display: block;
+    margin-top: 3px;
+    min-height: 16px;
+    font-weight: 500;
+}
+
+/* ===== Inputs & Select ===== */
+.form-input
+{
+    width: 100%;
+    padding: 12px 14px;
+    border: 1.5px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 14px;
+    box-sizing: border-box;
+    transition: all 0.3s ease;
+    font-family: 'Poppins', Arial, sans-serif;
+}
+
+.form-input:hover {
+    border-color: #2c3e50;
+    box-shadow: 0 2px 8px rgba(44, 62, 80, 0.15);
+}
+
+.form-input:focus,
+#department:focus {
+    border-color: #2c3e50;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(44, 62, 80, 0.1);
+}
+
+/* File input */
+.form-file {
+    margin-top: 5px;
+}
+
+/* ===== Password Field with Icon ===== */
+.password-box {
+    position: relative;
+}
+
+.password-box input {
+    padding-right: 40px;
+}
+
+.toggle-icon {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #666;
+}
+
+.toggle-icon:hover {
+    color: #000;
+}
+
+/* ===== Submit Button ===== */
+button {
+    width: 100%;
+    padding: 13px;
+    margin-top: 25px;
+    background: linear-gradient(135deg, #2c3e50, #34495e);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    letter-spacing: 0.5px;
+}
+
+button:hover {
+    background: linear-gradient(135deg, #1a252f, #2c3e50);
+    transform: translateY(-2px);
+    box-shadow: 0px 8px 20px rgba(0,0,0,0.25);
+}
+
+/* ===== Department Theme Colors ===== */
+.it-label { color: #0066cc; }
+.it-input {
+    border-color: #0066cc;
+    background-color: #eaf4ff;
+}
+
+.hr-label { color: #cc0066; }
+.hr-input {
+    border-color: #cc0066;
+    background-color: #ffeaf4;
+}
+
+.intern-label { color: #009933; }
+.intern-input {
+    border-color: #009933;
+    background-color: #eaffea;
+}
+
+/* Department-specific classes for form fields */
+.fname-label, .mname-label, .lname-label, .email-label, .password-label, .cpassword-label, .profilepic-label {
+    transition: color 0.3s ease;
+}
+
+.fname-input, .mname-input, .lname-input, .email-input, .password-input, .cpassword-input, .profilepic-input {
+    transition: all 0.3s ease;
+}
+/* ===== Form Fade-In Animation ===== */
+.container {
+    animation: fadeIn 0.8s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ===== Smooth Transition for Theme Change ===== */
+.form-label,
+.form-input {
+    transition: all 0.3s ease;
+}
+
+/* ===== Input Focus Glow ===== */
+.form-input:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 6px rgba(0,123,255,0.4);
+    outline: none;
+}
+
+/* ===== Button Hover Animation ===== */
+button {
+    transition: all 0.3s ease;
+}
+
+button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0px 5px 12px rgba(0,0,0,0.2);
+}
+
+/* ===== Password Rule Smooth Color Change ===== */
+.password-rules li {
+    transition: color 0.3s ease;
+}
+
+/* Password rules initially hidden */
+.password-rules {
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: all 0.4s ease;
+}
+
+/* Show rules when active */
+.password-rules.show {
+    max-height: 200px;
+    opacity: 1;
+}
+
+/* Shake animation */
+@keyframes shake {
+    0% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    50% { transform: translateX(5px); }
+    75% { transform: translateX(-5px); }
+    100% { transform: translateX(0); }
+}
+
+.shake {
+    animation: shake 0.4s ease;
+}
+
+.success-box {
+    display: none;
+    text-align: center;
+    color: #28a745;
+    font-size: 18px;
+    margin-bottom: 10px;
+    animation: pop 0.6s ease;
+}
+
+@keyframes pop {
+    0% { transform: scale(0.5); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
