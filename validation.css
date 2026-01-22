@@ -1,0 +1,590 @@
+/**
+ * Registration Form CSS
+ * Complete styling for form layout, validation states, animations, and responsiveness
+ * Color Scheme: Purple gradient (#667eea - #764ba2), Red errors (#ff1a1a), Green success (#28a745)
+ * Department Themes: IT (Blue #0066cc), HR (Pink #cc0066), Internship (Green #009933)
+ */
+
+/* ================================================
+   GLOBAL STYLES - Reset and Page Layout
+   ================================================ */
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+/* Body: Flexbox centering with fixed gradient background */
+body {
+    font-family: 'Poppins', Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 15px;
+    position: relative;
+}
+
+/* Static gradient background - doesn't move with scroll or hover */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    z-index: -1;
+}
+
+/* ================================================
+   TOAST NOTIFICATION - Success Message Display
+   ================================================ */
+
+.toast {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%) translateY(150px); /* Starts off-screen */
+    background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+    color: white;
+    padding: 16px 24px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    box-shadow: 0 8px 24px rgba(40, 167, 69, 0.4);
+    z-index: 1000;
+    font-weight: 600;
+    font-size: clamp(14px, 2.2vw, 16px);
+    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    min-width: 280px;
+}
+
+/* Check icon animation */
+.toast i {
+    font-size: 20px;
+    animation: toastCheck 0.6s ease;
+}
+
+/* Show toast - slides up into view */
+.toast.show {
+    transform: translateX(-50%) translateY(0);
+}
+
+/* Check icon animation keyframes - bouncy scale and rotate effect */
+@keyframes toastCheck {
+    0% {
+        transform: scale(0) rotate(-45deg);
+        opacity: 0;
+    }
+    50% {
+        transform: scale(1.2) rotate(10deg);
+    }
+    100% {
+        transform: scale(1) rotate(0);
+        opacity: 1;
+    }
+}
+
+/* ================================================
+   FORM CONTAINER - Main Card Layout
+   ================================================ */
+
+.container {
+    background: rgba(255, 255, 255, 0.95);
+    padding: 30px 40px;
+    border-radius: 20px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    width: 100%;
+    max-width: 450px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    animation: slideUp 0.6s ease-out;
+    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.4s ease, border 0.4s ease;
+}
+
+/* Hover effect - lifts container up with enhanced shadow */
+.container:hover {
+    transform: translateY(-12px);
+    box-shadow: 0 30px 90px rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+/* Initial slide-up animation on page load */
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ================================================
+   TYPOGRAPHY - Headings, Labels, Error Messages
+   ================================================ */
+
+/* Form heading - gradient text effect */
+h2 {
+    text-align: center;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 25px;
+    font-size: clamp(26px, 6vw, 32px); /* Fluid responsive sizing */
+    font-weight: 800;
+    letter-spacing: -0.5px;
+}
+
+/* Form labels - requires field indicator */
+.form-label {
+    font-weight: 600;
+    display: block;
+    margin-top: 15px;
+    margin-bottom: 7px;
+    transition: all 0.3s ease;
+    color: #2c3e50;
+    font-size: clamp(14px, 2.5vw, 16px);
+    letter-spacing: 0.3px;
+}
+
+/* Label hover color change */
+.form-label:hover {
+    color: #667eea;
+}
+
+/* Required field red asterisk */
+.required::after {
+    content: " *";
+    color: #ff1a1a;
+}
+
+/* Error message styling */
+.error-msg {
+    color: #ff1a1a;
+    font-size: clamp(13px, 2.2vw, 15px);
+    display: block;
+    margin-top: 5px;
+    min-height: 16px; /* Prevents layout shift */
+    font-weight: 600;
+    animation: slideInError 0.3s ease;
+}
+
+/* Error message slide-in animation */
+@keyframes slideInError {
+    from {
+        opacity: 0;
+        transform: translateX(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* ================================================
+   FORM INPUTS - Text Fields, Selects, File Input
+   ================================================ */
+
+/* Base input styling - applies to text, email, password, select */
+.form-input {
+    width: 100%;
+    padding: clamp(12px, 2.2vw, 15px) clamp(14px, 2.5vw, 18px);
+    border: 2px solid #e8e8e8;
+    border-radius: 12px;
+    font-size: clamp(14px, 2.2vw, 16px);
+    box-sizing: border-box;
+    transition: all 0.3s ease;
+    font-family: 'Poppins', Arial, sans-serif;
+    background-color: #f8f9fa;
+}
+
+/* Input hover state - subtle highlight */
+.form-input:hover {
+    border-color: #667eea;
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.1);
+}
+
+/* Input focus state - active interaction */
+.form-input:focus {
+    border-color: #667eea;
+    outline: none;
+    box-shadow: 0 4px 20px rgba(102, 126, 234, 0.25);
+    background-color: #ffffff;
+    transform: translateY(-2px);
+}
+
+/* Error state - red border and light red background */
+.form-input.input-error {
+    border-color: #ff1a1a;
+    box-shadow: 0 4px 20px rgba(255, 26, 26, 0.25);
+    background-color: #fff5f5;
+}
+
+/* Error state focus - maintains error styling */
+.form-input.input-error:focus {
+    border-color: #ff1a1a;
+    box-shadow: 0 4px 20px rgba(255, 26, 26, 0.3);
+}
+
+/* Error state hover - prevents department theme from showing */
+.form-input.input-error:hover,
+.form-input.input-error.it-input:hover,
+.form-input.input-error.hr-input:hover,
+.form-input.input-error.intern-input:hover {
+    border-color: #ff1a1a !important;
+    box-shadow: 0 4px 20px rgba(255, 26, 26, 0.25) !important;
+    background-color: #fff5f5 !important;
+}
+
+/* File input styling */
+.form-file {
+    margin-top: 5px;
+    cursor: pointer;
+}
+
+/* Custom file upload button */
+.form-file::-webkit-file-upload-button {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+/* File button hover effect */
+.form-file::-webkit-file-upload-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+}
+
+/* File input error state */
+.form-file.input-error {
+    border-color: #ff1a1a;
+    box-shadow: 0 4px 20px rgba(255, 26, 26, 0.25);
+}
+
+/* ================================================
+   PASSWORD FIELD - Toggle Icon and Layout
+   ================================================ */
+
+/* Password field container - positions toggle icon */
+.password-box {
+    position: relative;
+}
+
+/* Extra padding for password field to accommodate toggle icon */
+.password-box input {
+    padding-right: clamp(40px, 8vw, 45px);
+}
+
+/* Eye icon for password toggle */
+.toggle-icon {
+    position: absolute;
+    right: clamp(12px, 2vw, 15px);
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #764ba2;
+    transition: all 0.3s ease;
+    font-size: clamp(14px, 2vw, 16px);
+}
+
+/* Eye icon hover - color change and scale */
+.toggle-icon:hover {
+    color: #667eea;
+    transform: translateY(-50%) scale(1.2);
+}
+
+/* ================================================
+   SUBMIT BUTTON - Call to Action
+   ================================================ */
+
+button {
+    width: 100%;
+    padding: clamp(13px, 2.8vw, 16px);
+    margin-top: 25px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: #fff;
+    border: none;
+    border-radius: 12px;
+    font-size: clamp(15px, 2.3vw, 17px);
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+}
+
+/* Button hover - lift and enhance shadow */
+button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 30px rgba(102, 126, 234, 0.4);
+}
+
+/* Button active - subtle press effect */
+button:active {
+    transform: translateY(-1px);
+}
+
+/* ================================================
+   DEPARTMENT THEMES - Color Schemes by Department
+   ================================================ */
+
+/* IT Department Theme - Blue (#0066cc) */
+.it-label {
+    color: #0066cc;
+}
+
+.it-input {
+    border-color: #0066cc;
+    background-color: #eaf4ff;
+}
+
+.it-input:hover {
+    border-color: #0066cc;
+    box-shadow: 0 4px 12px rgba(0, 102, 204, 0.2);
+}
+
+.it-input:focus {
+    border-color: #0066cc;
+    box-shadow: 0 4px 20px rgba(0, 102, 204, 0.3);
+}
+
+/* HR Department Theme - Pink (#cc0066) */
+.hr-label {
+    color: #cc0066;
+}
+
+.hr-input {
+    border-color: #cc0066;
+    background-color: #ffeaf4;
+}
+
+.hr-input:hover {
+    border-color: #cc0066;
+    box-shadow: 0 4px 12px rgba(204, 0, 102, 0.2);
+}
+
+.hr-input:focus {
+    border-color: #cc0066;
+    box-shadow: 0 4px 20px rgba(204, 0, 102, 0.3);
+}
+
+/* Internship Department Theme - Green (#009933) */
+.intern-label {
+    color: #009933;
+}
+
+.intern-input {
+    border-color: #009933;
+    background-color: #eaffea;
+}
+
+.intern-input:hover {
+    border-color: #009933;
+    box-shadow: 0 4px 12px rgba(0, 153, 51, 0.2);
+}
+
+.intern-input:focus {
+    border-color: #009933;
+    box-shadow: 0 4px 20px rgba(0, 153, 51, 0.3);
+}
+
+/* Field-specific transitions */
+.fname-label,
+.mname-label,
+.lname-label,
+.email-label,
+.password-label,
+.cpassword-label,
+.profilepic-label {
+    transition: color 0.3s ease;
+}
+
+.fname-input,
+.mname-input,
+.lname-input,
+.email-input,
+.password-input,
+.cpassword-input,
+.profilepic-input {
+    transition: all 0.3s ease;
+}
+
+/* ================================================
+   DEPARTMENT SELECTOR - Custom Styled Dropdown
+   ================================================ */
+
+/* Container for dropdown with custom arrow icon */
+.department-wrapper {
+    position: relative;
+    display: block;
+}
+
+/* Custom styled select element */
+.department-select {
+    width: 100%;
+    padding: clamp(12px, 2.2vw, 15px) clamp(14px, 2.5vw, 18px);
+    border: 2px solid #e8e8e8;
+    border-radius: 12px;
+    font-size: clamp(14px, 2.2vw, 16px);
+    box-sizing: border-box;
+    transition: all 0.3s ease;
+    font-family: 'Poppins', Arial, sans-serif;
+    appearance: none;
+    padding-right: clamp(40px, 8vw, 45px);
+    background: linear-gradient(to right, #f8f9fa 0%, #ffffff 100%);
+    cursor: pointer;
+    font-weight: 500;
+    color: #2c3e50;
+}
+
+/* Dropdown hover state */
+.department-select:hover {
+    border-color: #667eea;
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.1);
+}
+
+/* Dropdown focus state */
+.department-select:focus {
+    border-color: #667eea;
+    outline: none;
+    box-shadow: 0 4px 20px rgba(102, 126, 234, 0.25);
+    background: linear-gradient(to right, rgba(102, 126, 234, 0.05) 0%, #ffffff 100%);
+}
+
+/* Custom dropdown arrow icon */
+.department-icon {
+    position: absolute;
+    right: clamp(12px, 2vw, 15px);
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    color: #764ba2;
+    font-size: clamp(11px, 2vw, 12px);
+    transition: all 0.3s ease;
+}
+
+/* Arrow rotates when dropdown is focused */
+.department-wrapper:focus-within .department-icon {
+    transform: translateY(-50%) rotate(180deg);
+    color: #667eea;
+}
+
+/* Arrow stays red when department has error */
+.department-wrapper:focus-within #department.department-error ~ .department-icon {
+    transform: translateY(-50%);
+    color: #ff1a1a;
+}
+
+/* IT theme applied to dropdown */
+#department.it-selected {
+    border-color: #0066cc;
+    background: linear-gradient(to right, rgba(0, 102, 204, 0.08) 0%, #ffffff 100%);
+}
+
+/* HR theme applied to dropdown */
+#department.hr-selected {
+    border-color: #cc0066;
+    background: linear-gradient(to right, rgba(204, 0, 102, 0.08) 0%, #ffffff 100%);
+}
+
+/* Internship theme applied to dropdown */
+#department.intern-selected {
+    border-color: #009933;
+    background: linear-gradient(to right, rgba(0, 153, 51, 0.08) 0%, #ffffff 100%);
+}
+
+/* Dropdown error state */
+#department.department-error {
+    border-color: #ff1a1a;
+    box-shadow: 0 4px 20px rgba(255, 26, 26, 0.25);
+    background-color: #fff5f5;
+}
+
+/* Dropdown error state on focus - maintains error styling */
+#department.department-error:focus {
+    border-color: #ff1a1a !important;
+    box-shadow: 0 4px 20px rgba(255, 26, 26, 0.3) !important;
+    background-color: #fff5f5 !important;
+    background: #fff5f5 !important;
+}
+
+/* ================================================
+   RESPONSIVE DESIGN - Mobile, Tablet, Desktop
+   ================================================ */
+
+/* Extra small devices (Mobile - 320px to 480px) */
+@media (max-width: 480px) {
+    body {
+        padding: 10px;
+    }
+
+    .container {
+        padding: 20px 25px;
+        border-radius: 16px;
+    }
+
+    h2 {
+        margin-bottom: 20px;
+    }
+
+    .form-label {
+        margin-top: 12px;
+        margin-bottom: 5px;
+    }
+
+    .form-input {
+        border-radius: 10px;
+    }
+
+    button {
+        margin-top: 20px;
+        padding: clamp(11px, 2.5vw, 12px);
+    }
+}
+
+/* Small devices (Mobile - 481px to 768px) */
+@media (max-width: 768px) {
+    .container {
+        padding: 25px 30px;
+        max-width: 100%;
+    }
+
+    h2 {
+        margin-bottom: 22px;
+    }
+
+    .form-label {
+        margin-top: 14px;
+    }
+
+    button {
+        margin-top: 22px;
+    }
+}
+
+/* Medium devices (Tablet - 769px to 1024px) */
+@media (min-width: 769px) and (max-width: 1024px) {
+    .container {
+        padding: 30px 35px;
+        max-width: 400px;
+    }
+}
+
+/* Large devices (Desktop - 1025px and above) */
+@media (min-width: 1025px) {
+    .container {
+        padding: 30px 40px;
+    }
+}
+
