@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Registration Form</title>
+    <!-- External Stylesheets -->
+    <link rel="stylesheet" href="validation.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <!-- jQuery Library -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  </head>
+  <body>
+    <!-- Success Toast Notification - Shows when form submitted successfully -->
+    <div id="successToast" class="toast">
+      <i class="fa-solid fa-check-circle"></i>
+      <span>Form submitted successfully!</span>
+    </div>
+
+    <!-- Main Form Container -->
+    <div class="container">
+      <h2>Registration Form</h2>
+
+      <!-- Department Selector - Outside the form, controls theme styling -->
+      <label class="form-label required">Select Department</label>
+      <div class="department-wrapper">
+        <select id="department" class="form-input department-select">
+          <option value="">-- Select Your Department --</option>
+          <option value="it">💻 Information Technology</option>
+          <option value="hr">👥 Human Resources</option>
+          <option value="intern">🚀 Internship</option>
+        </select>
+        <!-- Custom dropdown arrow icon -->
+        <i class="fa-solid fa-chevron-down department-icon"></i>
+      </div>
+      <!-- Department error message -->
+      <span class="error-msg" id="department-error"></span>
+
+      <!-- Main Registration Form -->
+      <form id="regForm">
+        <!-- First Name Field (Required) -->
+        <label class="form-label required fname-label">First Name</label>
+        <input type="text" id="fname" class="form-input fname-input" placeholder="Enter first name" />
+        <span class="error-msg" id="fname-error"></span>
+
+        <!-- Middle Name Field (Optional) -->
+        <label class="form-label mname-label">Middle Name</label>
+        <input type="text" id="mname" class="form-input mname-input" placeholder="Enter middle name" />
+        <span class="error-msg" id="mname-error"></span>
+
+        <!-- Last Name Field (Required) -->
+        <label class="form-label required lname-label">Last Name</label>
+        <input type="text" id="lname" class="form-input lname-input" placeholder="Enter last name" />
+        <span class="error-msg" id="lname-error"></span>
+
+        <!-- Email Field (Required) -->
+        <label class="form-label required email-label">Email</label>
+        <input type="text" id="email" class="form-input email-input" placeholder="example@gmail.com" />
+        <span class="error-msg" id="email-error"></span>
+
+        <!-- Password Field (Required) - With toggle visibility icon -->
+        <label class="form-label required password-label">Password</label>
+        <div class="password-box">
+          <input type="password" id="password" class="form-input password-input" placeholder="Create password" />
+          <!-- Eye icon to toggle password visibility -->
+          <i class="fa-solid fa-eye toggle-icon" id="togglePass"></i>
+        </div>
+        <span class="error-msg" id="password-error"></span>
+
+        <!-- Confirm Password Field (Required) - With toggle visibility icon -->
+        <label class="form-label required cpassword-label">Confirm Password</label>
+        <div class="password-box">
+          <input type="password" id="cpassword" class="form-input cpassword-input" placeholder="Re-enter password" />
+          <!-- Eye icon to toggle password visibility -->
+          <i class="fa-solid fa-eye toggle-icon" id="toggleCPass"></i>
+        </div>
+        <span class="error-msg" id="cpassword-error"></span>
+
+        <!-- Profile Picture Field (Required) - File upload -->
+        <label class="form-label required profilepic-label">Profile Picture</label>
+        <input type="file" id="profilePic" class="form-file profilepic-input" />
+        <span class="error-msg" id="profilepic-error"></span>
+
+        <!-- Submit Button -->
+        <button type="submit">Submit</button>
+      </form>
+    </div>
+
+    <!-- Form Validation and Interaction Logic -->
+    <script src="validation.js"></script>
+  </body>
+</html>
